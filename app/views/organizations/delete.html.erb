@@ -1,0 +1,10 @@
+<section class="container-bg p-3 mt-3">
+<h1>Are You Sure?</h1>
+<p>Once an organization has been deleted, it cannot be recovered.</p>
+<h3>Do you wish to delete <%= @organization.name %>?</h3>
+
+<%= form_for(@organization, method: "delete") do |f| %>
+<%= f.submit "Permanently Delete Organization", class: "btn btn-angry me-3" %>
+<%= link_to("Return to Organization", organization_path(@organization.id)) %>
+<% end %>
+</section>

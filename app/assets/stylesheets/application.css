@@ -1,0 +1,205 @@
+/*
+ * This is a manifest file that'll be compiled into application.css, which will include all the files
+ * listed below.
+ *
+ * Any CSS (and SCSS, if configured) file within this directory, lib/assets/stylesheets, or any plugin's
+ * vendor/assets/stylesheets directory can be referenced here using a relative path.
+ *
+ * You're free to add application-wide styles to this file and they'll appear at the bottom of the
+ * compiled file so the styles you add here take precedence over styles defined in any other CSS
+ * files in this directory. Styles in this file should be added after the last require_* statement.
+ * It is generally better to create a new file per style scope.
+ *
+ *= require_tree .
+ *= require_self
+ */
+@import url('https://fonts.googleapis.com/css2?family=Josefin+Sans:ital,wght@0,200;0,400;0,700;1,200;1,400;1,700&display=swap');
+
+:root {
+	--main-bg: #182f30;
+	--accent-color: #D9222C;
+	--main-color: #EDA42B;
+	--container-bg: #F8F6F5;
+	--container-shadow: #9AB4B5;
+}
+
+* {
+	font-family: 'Josefin Sans', sans-serif;
+}
+
+body {
+	background: var(--main-bg);
+	color: var(--container-bg);
+	min-height: 100vh;
+}
+
+.navbar	{
+	background: var(--main-bg);
+	color: var(--container-bg);
+}
+
+.nav-item {
+	height: 100%;
+	display: flex;
+	justify-content: center;
+	align-items: center;
+}
+
+a:link, a:visited, a:active, .navbar a:link, .navbar a:visited, .navbar a:active, .navbar button {
+	color: var(--main-color);
+	text-decoration: none;
+}
+
+.navbar a:hover, .navbar button:hover, a:hover {
+	color: var(--accent-color);
+}
+
+.container-bg a:hover {
+	color: var(--main-bg);
+}
+
+#rubeus-logo {
+	height: 32px;
+}
+
+.rubeus-alert {
+	background: rgba(36, 90, 95, .25);
+	color: var(--container-bg);
+	border-color: rgba(0,0,0,.5);
+	box-shadow: 0 0 10px var(--main-bg);
+	position: absolute;
+	top: 10vh;
+	left: 10%;
+	width: 80%;
+	z-index: 2;
+}
+
+.container-bg {
+	background: var(--container-bg);
+	color: var(--main-bg);
+	box-shadow: 50px 0 var(--container-shadow);
+	border-radius: 25px 0 0 0;
+}
+
+#video-bg {
+	position: fixed;
+	object-fit: cover;
+	left: 0;
+	height: 100vh;
+}
+
+#ribbon {
+	font-size: 4em;
+	font-weight: 200;
+	position: absolute;
+	display: flex;
+	flex-direction: column;
+	justify-content: center;
+	align-items: center;
+	width: 100%;
+	left: 0;
+	bottom: 10vh;
+	text-shadow: 2px 2px var(--main-color);
+	background: rgba(36, 90, 95, .25);
+	box-shadow: 0 0 10px var(--main-bg);
+	padding: 16px;
+}
+
+@supports (-webkit-backdrop-filter: none) or (backdrop-filter: none) {
+	#ribbon, .rubeus-alert {
+		-webkit-backdrop-filter: blur(10px);
+		backdrop-filter: blur(10px);
+	}
+}
+
+#ribbon em {
+	font-size: 2em;
+	font-weight: 700;
+	text-shadow: 5px 5px var(--accent-color);
+}
+
+.btn-main, a.btn-main {
+	background: var(--main-bg);
+	color: var(--container-bg);
+}
+
+.btn-angry, a.btn-angry {
+	background: var(--accent-color);
+	color: var(--container-bg);
+}
+
+.btn-main:hover, .btn-angry:hover, a.btn-main:hover, a.btn-angry:hover {
+	background: var(--main-color);
+	color: var(--accent-color);
+}
+
+.custom-check:checked {
+	background-color: var(--main-bg);
+}
+
+.custom-check:checked:focus, .custom-check:focus, .custom-input:focus {
+	box-shadow: 0 0 0 0.2rem var(--container-shadow);
+	border: 1px solid var(--main-bg);
+}
+
+.custom-check:active {
+	background-color: var(--main-color);
+}
+
+#nav-tab {
+	border-bottom: 1px solid var(--main-bg);
+}
+
+#nav-tab .nav-link {
+	color: var(--main-bg);
+}
+
+#nav-tab .nav-link:hover {
+	border: 1px solid var(--main-bg);
+	background: var(--container-shadow);
+}
+
+#nav-tab .nav-link.active {
+	color: var(--main-color);
+	background: var(--main-bg);
+	border: 1px solid var(--main-bg);
+}
+
+.my-table {
+	border: 1px solid var(--main-bg);
+	table-layout: auto;
+}
+
+.my-table th, .my-table td {
+	padding: .5em;
+}
+
+.my-table tbody tr {
+	border-bottom: 1px solid var(--container-shadow);
+}
+
+#owned-orgs tr td:last-child {
+	width: 1%;
+	white-space: nowrap;
+}
+
+.my-table tbody tr:last-child {
+	border-bottom: 1px solid var(--main-bg);
+}
+
+thead#thead-bg {
+	background: var(--main-bg) !important;
+	color: var(--container-bg)
+}
+
+td.expand {
+	margin-right: auto;
+}
+
+.user-row {
+	border-top: 1px solid var(--container-shadow);
+}
+
+.user-row:first-of-type {
+	border-top: 0 solid transparent;
+}

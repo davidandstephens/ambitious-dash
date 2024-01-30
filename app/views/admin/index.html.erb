@@ -1,0 +1,53 @@
+<section class="container-bg p-3 mt-3">
+  <h1>Ambitious Administration</h1>
+  <p>Manage Beta Access!</p>
+
+  <nav class="mb-3">
+    <div class="nav nav-tabs" id="nav-tab" role="tablist">
+      <button class="nav-link active" id="nav-grant-tab" data-bs-toggle="tab" data-bs-target="#nav-grant" type="button" role="tab" aria-controls="nav-grant" aria-selected="true">Grant
+        Access
+      </button>
+      <button class="nav-link" id="nav-revoke-tab" data-bs-toggle="tab" data-bs-target="#nav-revoke" type="button" role="tab" aria-controls="nav-revoke" aria-selected="false">Revoke
+        Access
+      </button>
+      <button class="nav-link" id="nav-orgs-tab" data-bs-toggle="tab" data-bs-target="#nav-orgs" type="button" role="tab" aria-controls="nav-orgs" aria-selected="false">Grant
+        Access To Organizations
+      </button>
+    </div>
+  </nav>
+  <div class="tab-content" id="nav-tabContent">
+    <div class="tab-pane fade show active" id="nav-grant" role="tabpanel" aria-labelledby="nav-grant-tab" tabindex="0">
+      <% @reg_users.each do |user| %>
+        <div class="d-flex align-items-center mb-3">
+          <h4 class="mb-0 me-auto"><%= user.display_name %></h4>
+          <form action="/admin/grant/<%= user.id %>" method="post">
+            <%= hidden_field_tag :authenticity_token, form_authenticity_token %>
+            <button class="mb-1 btn btn-main">Grant Beta Access</button>
+          </form>
+        </div>
+      <% end %>
+    </div>
+    <div class="tab-pane fade" id="nav-revoke" role="tabpanel" aria-labelledby="nav-revoke-tab" tabindex="0">
+      <% @beta_users.each do |user| %>
+        <div class="d-flex align-items-center mb-3">
+          <h4 class="mb-0 me-auto"><%= user.display_name %></h4>
+          <form action="/admin/revoke/<%= user.id %>" method="post">
+            <%= hidden_field_tag :authenticity_token, form_authenticity_token %>
+            <button class="mb-1 btn btn-angry">Revoke Beta Access</button>
+          </form>
+        </div>
+      <% end %>
+    </div>
+    <div class="tab-pane fade" id="nav-orgs" role="tabpanel" aria-labelledby="nav-orgs-tab" tabindex="0">
+      <% @orgs.each do |org| %>
+        <div class="d-flex align-items-center mb-3">
+          <h4 class="mb-0 me-auto"><%= org.name %></h4>
+          <form action="/admin/organizations/grant/<%= org.id %>" method="post">
+            <%= hidden_field_tag :authenticity_token, form_authenticity_token %>
+            <button class="mb-1 btn btn-main">Grant Beta Access to Organization</button>
+          </form>
+        </div>
+      <% end %>
+    </div>
+  </div>
+</section>

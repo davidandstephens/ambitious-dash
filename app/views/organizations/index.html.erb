@@ -1,0 +1,64 @@
+<section class="container-bg p-3 mt-3">
+  <h1>Organizations</h1>
+
+  <%= link_to("Create New Organization", new_organization_path, class: "action new btn btn-main mb-5") %>
+  <nav>
+    <div class="nav nav-tabs" id="nav-tab" role="tablist">
+      <button class="nav-link active" id="nav-index-tab" data-bs-toggle="tab" data-bs-target="#nav-index" type="button" role="tab" aria-controls="nav-index" aria-selected="true">Organizations</button>
+      <button class="nav-link" id="nav-owned-tab" data-bs-toggle="tab" data-bs-target="#nav-owned" type="button" role="tab" aria-controls="nav-owned" aria-selected="false">Your
+        Owned Organizations
+      </button>
+    </div>
+  </nav>
+  <div class="tab-content" id="nav-tabContent">
+    <div class="tab-pane fade show active" id="nav-index" role="tabpanel" aria-labelledby="nav-index-tab" tabindex="0">
+      <table class="my-table w-100">
+        <thead id="thead-bg">
+        <tr>
+          <th scope="col">Name</th>
+          <th scope="col">Location</th>
+          <th scope="col">Owner</th>
+        </tr>
+        </thead>
+        <tbody>
+        <% @organizations.each do |org| %>
+          <tr class="no-bg">
+            <td><%= link_to(org.name, organization_path(org.id)) %></td>
+            <td><%= org.location %></td>
+            <td><%= org.owner.display_name %></td>
+          </tr>
+        <% end %>
+        </tbody>
+      </table>
+    </div>
+    <div class="tab-pane fade" id="nav-owned" role="tabpanel" aria-labelledby="nav-owned-tab" tabindex="0">
+      <% if !@owned_orgs.empty? %>
+        <table id="owned-orgs" class="my-table w-100">
+          <thead id="thead-bg">
+          <tr>
+            <th>Name</th>
+            <th>Location</th>
+            <th>Actions</th>
+          </tr>
+          </thead>
+          <tbody>
+          <% @owned_orgs.each do |org| %>
+            <% admin_url = "/admin/organizations/#{org.id}" %>
+            <tr>
+              <td><%= link_to(org.name, organization_path(org.id)) %></td>
+              <td><%= org.location %></td>
+              <td class="text-end">
+                <%= link_to("Member Administration", admin_url, class: "btn btn-main") %>
+                <%= link_to("Edit Organization", edit_organization_path(org), class: "btn btn-main") %>
+                <%= link_to("Delete Organization", delete_organization_path(org), class: "btn btn-angry") %>
+              </td>
+            </tr>
+          <% end %>
+          </tbody>
+        </table>
+      <% else %>
+        <p class="mt-3 mb-0">You don't own any organizations...</p>
+      <% end %>
+    </div>
+  </div>
+</section>

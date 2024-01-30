@@ -1,0 +1,31 @@
+<section class="container-bg p-3 mt-3">
+  <h1>Organization: <%= @organization.name %></h1>
+  <h3>This organization is owned by <%= @organization.owner.display_name %></h3>
+  <h3>Location: <%= @organization.location %></h3>
+  <br>
+  <p><%= @organization.description %></p>
+  <div class="d-flex align-items-center">
+    <% if @organization.owner == @user %>
+      <% admin_url = "/admin/organizations/#{@organization.id}" %>
+      <%= link_to("Member Administration", admin_url, class: "btn btn-main") %>
+    <% else %>
+      <% if @membership.new_record? %>
+        <%= form_for(@membership) do |f| %>
+          <%= f.hidden_field(:organization_id, value: @organization.id) %>
+          <%= f.hidden_field(:user_id, value: @user.id) %>
+          <%= f.submit "Apply to Join " + @organization.name, class: "btn btn-main" %>
+        <% end %>
+      <% else %>
+        <%= form_for(@membership, method: "delete") do |f| %>
+          <%= f.hidden_field(:organization_id, value: @organization.id) %>
+          <%= f.hidden_field(:user_id, value: @user.id) %>
+          <%= f.submit "Leave " + @organization.name, class: "btn btn-angry" %>
+        <% end %>
+      <% end %>
+    <% end %>
+    <% if can? :update, @organization %>
+      <%= link_to("Edit Organization", edit_organization_path(@organization), class: "btn btn-main ms-auto me-3") %>
+      <%= link_to("Delete Organization", delete_organization_path(@organization), class: "btn btn-angry") %>
+    <% end %>
+  </div>
+</section>

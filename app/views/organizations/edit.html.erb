@@ -1,0 +1,8 @@
+<section class="container-bg p-3 mt-3">
+<h1>Update Organization</h1>
+
+<%= form_for(@organization) do |f| %>
+<%= render(partial: "form", locals: {f: f}) %>
+<%= f.submit "Update Organization", class: "btn btn-main" %>
+<% end %>
+</section>

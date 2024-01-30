@@ -1,0 +1,82 @@
+<section class="container-bg p-3 mt-3">
+  <h1>Organization Admin</h1>
+
+  <% if @organization.users.empty? %>
+    <h1>Oops, no members!</h1>
+  <% else %>
+    <nav>
+      <div class="nav nav-tabs" id="nav-tab" role="tablist">
+        <button class="nav-link active" id="nav-requests-tab" data-bs-toggle="tab" data-bs-target="#nav-requests" type="button" role="tab" aria-controls="nav-requests" aria-selected="true">Pending
+          Requests
+        </button>
+        <button class="nav-link" id="nav-members-tab" data-bs-toggle="tab" data-bs-target="#nav-members" type="button" role="tab" aria-controls="nav-members" aria-selected="false">Current
+          Members
+        </button>
+        <button class="nav-link" id="nav-rejected-tab" data-bs-toggle="tab" data-bs-target="#nav-rejected" type="button" role="tab" aria-controls="nav-rejected" aria-selected="false">Rejected
+          Users
+        </button>
+      </div>
+    </nav>
+    <div class="tab-content" id="nav-tabContent">
+      <div class="tab-pane fade show active" id="nav-requests" role="tabpanel" aria-labelledby="nav-requests-tab" tabindex="0">
+        <% if @pending.empty? %>
+          <h3 class="mt-3">There are no pending join requests</h3>
+        <% else %>
+          <% @pending.each do |mem| %>
+            <div class="d-flex align-items-center mt-3">
+              <h4 class="me-5 mb-0"><%= mem.user.display_name %></h4>
+              <p class="mb-0"><%= mem.user.email %></p>
+              <div class="ms-auto d-flex">
+                <%= form_for(mem) do |f| %>
+                  <%= f.hidden_field(:approved, value: true) %>
+                  <%= f.submit "Approve Access", class: "btn btn-main me-3" %>
+                <% end %>
+                <%= form_for(mem) do |f| %>
+                  <%= f.hidden_field(:rejected, value: true) %>
+                  <%= f.submit "Reject & Block Access", class: "btn btn-angry" %>
+                <% end %>
+              </div>
+          <% end %>
+          </div>
+        <% end %>
+      </div>
+      <div class="tab-pane fade" id="nav-members" role="tabpanel" aria-labelledby="nav-members-tab" tabindex="0">
+        <% if @members.empty? %>
+          <h3 class="mt-3">This organization has no current members</h3>
+        <% else %>
+          <% @members.each do |mem| %>
+            <div class="d-flex align-items-center mt-3">
+              <h4 class="me-5 mb-0"><%= mem.user.display_name %></h4>
+              <p class="mb-0"><%= mem.user.email %></p>
+              <div class="ms-auto">
+                <%= form_for(mem) do |f| %>
+                  <%= f.hidden_field(:rejected, value: true) %>
+                  <%= f.submit "Block Access", class: "btn btn-angry" %>
+                <% end %>
+              </div>
+            </div>
+          <% end %>
+        <% end %>
+      </div>
+      <div class="tab-pane fade" id="nav-rejected" role="tabpanel" aria-labelledby="nav-rejected-tab" tabindex="0">
+        <% if @rejects.empty? %>
+          <h3 class="mt-3">No users have been rejected from this organization</h3>
+        <% else %>
+          <% @rejects.each do |mem| %>
+            <div class="d-flex align-items-center mt-3">
+              <h4 class="me-5 mb-0"><%= mem.user.display_name %></h4>
+              <p class="mb-0"><%= mem.user.email %></p>
+              <div class="ms-auto">
+                <%= form_for(mem, method: "delete", html: { class: "ms-auto" }) do |f| %>
+                  <%= f.hidden_field(:organization_id, value: @organization.id) %>
+                  <%= f.hidden_field(:user_id, value: mem.user.id) %>
+                  <%= f.submit "Allow #{mem.user.display_name} to Apply Again", class: "btn btn-angry" %>
+                <% end %>
+              </div>
+            </div>
+          <% end %>
+        <% end %>
+      </div>
+    </div>
+  <% end %>
+</section>
