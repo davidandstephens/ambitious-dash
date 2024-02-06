@@ -34,7 +34,7 @@
                 <%= link_to "Admin Portal", "/admin", class: "nav-link" %>
               </li>
             <% end %>
-            <% if current_user.beta_access %>
+            <% if current_user.beta_access || current_user.is_labs_employee %>
               <li class="nav-item mx-2">
                 <%= link_to "Access Beta Feature", "/beta", class: "nav-link" %>
               </li>
